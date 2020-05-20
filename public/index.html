@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"> -->
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <title>IceCode</title>
+</head>
+
+<body>
+    <div class = "page-container">
+    <header class = "header">
+        <h1 class = "title">IceCode</h1>
+    </header>
+    <header class = "subheader">
+        <h1 class = "subtitle">Tricks and Tips for Competitive Programming and Interviews</h1>
+    </header>
+    
+    <nav class = "menu">
+        <a id = "home" class = "menu-item menu-item-active" onclick = "expandHome()"><i class = "fa fa-home"></i> HOME</a>
+        <a id = "problems" class = "menu-item" onclick = "expandProblems()"><i class = "fa fa-code"></i> PROBLEMS</a>
+        <a id = "blogs" class = "menu-item" onclick = "expandBlogs()"><i class = "fa fa-coffee"></i> BLOGS</a>
+        <a id = "stats" class = "menu-item" onclick = "expandStats()"><i class = "fa fa-pie-chart"></i> STATS</a>
+    </nav>
+    <div id = "wrapper" class = "wrapper"></div>
+    <footer class="footer">
+        <a href="https://github.com/stelianchichirim" class = "footer-icon"><i class = "fa fa-github"></i></a>
+        <a href="https://codeforces.com/profile/Stelutzu" class = "footer-icon"><i class = "fa fa-bar-chart"></i></a><br><br>
+        CREATED AND DESIGNED BY STELIAN CHICHIRIM
+    </footer>
+    </div>
+</body>
+
+<script src = "homeMenu.js"></script>
+<script src = "prbBlogsMenu.js"></script>
+<script src = "statsMenu.js"></script>
+<script src = "script.js"></script>
+
+</html>
