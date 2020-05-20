@@ -46,7 +46,6 @@ function showStats() {
                         }
                     if (allCategories > 0) {
                         let percent = Math.floor((markedCategories * 100) / allCategories);
-                        console.log(markedCategories);
                         let bar = aux[1].getElementsByTagName("div")[0];
                         bar.textContent = percent + "%";
                         bar.style.width = percent + "%";
