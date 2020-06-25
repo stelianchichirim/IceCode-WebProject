@@ -8,7 +8,7 @@ const fs = require("fs");
 
 const app = express();
 
-const allTypes = ['problems', 'blogs', 'categories'];
+const allTypes = ['problems', 'blogs', 'categories', 'users', 'logger'];
 
 app.use(morgan("tiny"));
 app.use(bodyParser.json());

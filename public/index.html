@@ -10,13 +10,17 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"> -->
     <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico?version=10">
     <title>IceCode</title>
 </head>
 
 <body>
     <div class = "page-container">
     <header class = "header">
-        <h1 class = "title">IceCode</h1>
+        <div> <h1 class = "title">IceCode</h1> 
+        </div>
+        <div> <span class = "loginInfo" id = "loginInfo"> <a onclick = "expandHome()"> Login or Sign up</a> </span>
+        </div>
     </header>
     <header class = "subheader">
         <h1 class = "subtitle">Tricks and Tips for Competitive Programming and Interviews</h1>
@@ -37,9 +41,12 @@
     </div>
 </body>
 
+<script src = "script.js"></script>
+<script src = "loggerMenu.js"></script>
+<script src = "loginFunctions.js"></script>
 <script src = "homeMenu.js"></script>
 <script src = "prbBlogsMenu.js"></script>
 <script src = "statsMenu.js"></script>
-<script src = "script.js"></script>
+<script src = "profileMenu.js"></script>
 
 </html>

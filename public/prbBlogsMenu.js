@@ -34,20 +34,23 @@ function expandProblems() {
     changeMenuStyle("problems");
     document.documentElement.scrollTop = 0;
     document.getElementsByTagName("html")[0].style["overflow-y"] = "hidden";
-    document.getElementById("wrapper").innerHTML = prbBlogMenuHtmlCode;
-    document.getElementById("add").addEventListener("click", function(){
-        addContent("problems");
+    getUser(function(user) {
+        document.getElementById("wrapper").innerHTML = prbBlogMenuHtmlCode;
+        document.getElementById("add").addEventListener("click", function(){
+            addContent("problems");
+        });
+        document.getElementById("edit").addEventListener("click", function(){
+            editContent("problems");
+        });
+        document.getElementById("delete").addEventListener("click", function(){
+            deleteContent("problems");
+        });
+        document.getElementById("read").addEventListener("click", function(){
+            readContent("problems");
+        });
+        showSidebar("problems");
+        if (user == "") document.getElementById("actions").style.display = "none";
     });
-    document.getElementById("edit").addEventListener("click", function(){
-        editContent("problems");
-    });
-    document.getElementById("delete").addEventListener("click", function(){
-        deleteContent("problems");
-    });
-    document.getElementById("read").addEventListener("click", function(){
-        readContent("problems");
-    });
-    showSidebar("problems");
     document.getElementsByTagName("footer")[0].style.display = "none";
 }
 
@@ -55,20 +58,23 @@ function expandBlogs() {
     changeMenuStyle("blogs");
     document.documentElement.scrollTop = 0;
     document.getElementsByTagName("html")[0].style["overflow-y"] = "hidden";
-    document.getElementById("wrapper").innerHTML = prbBlogMenuHtmlCode;
-    document.getElementById("add").addEventListener("click", function(){
-        addContent("blogs");
+    getUser(function(user) {
+        document.getElementById("wrapper").innerHTML = prbBlogMenuHtmlCode;
+        document.getElementById("add").addEventListener("click", function(){
+            addContent("blogs");
+        });
+        document.getElementById("edit").addEventListener("click", function(){
+            editContent("blogs");
+        });
+        document.getElementById("delete").addEventListener("click", function(){
+            deleteContent("blogs");
+        });
+        document.getElementById("read").addEventListener("click", function(){
+            readContent("blogs");
+        });
+        showSidebar("blogs");
+        if (user == "") document.getElementById("actions").style.display = "none";
     });
-    document.getElementById("edit").addEventListener("click", function(){
-        editContent("blogs");
-    });
-    document.getElementById("delete").addEventListener("click", function(){
-        deleteContent("blogs");
-    });
-    document.getElementById("read").addEventListener("click", function(){
-        readContent("blogs");
-    });
-    showSidebar("blogs");
     document.getElementsByTagName("footer")[0].style.display = "none";
 }
 
@@ -77,19 +83,21 @@ function showSidebar(type, id = 1) {
     while (sidebar.firstChild) {    
         sidebar.removeChild(sidebar.firstChild);
     }
-    getElements(type, function (elements) {
-        for (const element of elements) {
-            let newElement = document.createElement("a");
-            newElement.setAttribute("id", element["id"]);
-            newElement.setAttribute("class", "sidebarElement");
-            if (localStorage[type + element["id"]] && localStorage[type + element["id"]] == 1) newElement.classList.add("done-element");
-            newElement.textContent = element["name"];
-            newElement.addEventListener("click", function () {
-                showContent(type, element["id"]);
-            });
-            sidebar.appendChild(newElement);
-        }
-        showContent(type, id);
+    getUser(function(user) {
+        getElements(type, function (elements) {
+            for (const element of elements) {
+                let newElement = document.createElement("a");
+                newElement.setAttribute("id", element["id"]);
+                newElement.setAttribute("class", "sidebarElement");
+                if (user != "" && user[type + element["id"]] && user[type + element["id"]] == 1) newElement.classList.add("done-element");
+                newElement.textContent = element["name"];
+                newElement.addEventListener("click", function () {
+                    showContent(type, element["id"]);
+                });
+                sidebar.appendChild(newElement);
+            }
+            showContent(type, id);
+        });
     });
 }
 
@@ -153,13 +161,20 @@ function addContent(type) {
 }
 
 function saveNewContent(type) {
-    const newObj = {
-        name: document.getElementById("elementName").value,
-        category: document.getElementById("category").value,
-        content: document.getElementById("textArea").value
-    }
-    postElement(type, newObj, function (element) {
-        showSidebar(type, element["id"]);
+    getUser(function(user) {
+        if (user["role"] != "admin" && user["role"] != "user") return;
+        const newObj = {
+            name: document.getElementById("elementName").value,
+            category: document.getElementById("category").value,
+            content: document.getElementById("textArea").value
+        }
+        let curr;
+        if (type == "problems") curr = "problem";
+        else curr = "blog";
+        logg(user["username"] + " added " + curr + " " + newObj["name"] + ".");
+        postElement(type, newObj, function (element) {
+            showSidebar(type, element["id"]);
+        });
     });
 }
 
@@ -190,35 +205,57 @@ function editContent(type) {
 }
 
 function editIdContent(type, id) {
-    const newObj = {
-        name: document.getElementById("elementName").value,
-        category: document.getElementById("category").value,
-        content: document.getElementById("textArea").value
-    }
-    updateElement(type, id, newObj, function() {
-        showSidebar(type, id);
+    getUser(function(user) {
+        if (user["role"] != "admin" && user["role"] != "user") return;
+        const newObj = {
+            name: document.getElementById("elementName").value,
+            category: document.getElementById("category").value,
+            content: document.getElementById("textArea").value
+        }
+        let curr;
+        if (type == "problems") curr = "problem";
+        else curr = "blog";
+        logg(user["username"] + " changed " + curr + " " + newObj["name"] + ".");
+        updateElement(type, id, newObj, function() {
+            showSidebar(type, id);
+        });
     });
 }
 
 function deleteContent(type) {
-    let currElement = document.getElementsByClassName("sidebarElement-active")[0];
-    if (currElement.id == "1") return;
-    if (localStorage[type + currElement.id]) localStorage[type + currElement.id] = 0;
-    deleteElement(type, Number(currElement.id), function() {
-        showSidebar(type);
+    getUser(function(user) {
+        if (user["role"] != "admin" && user["role"] != "user") return;
+        let currElement = document.getElementsByClassName("sidebarElement-active")[0];
+        if (currElement.id == "1") return;
+        if (user != "" && user[type + currElement.id]) {
+            user[type + currElement.id] = 0;
+            updateUser(user);
+        }
+        let curr;
+        if (type == "problems") curr = "problem";
+        else curr = "blog";
+        logg(user["username"] + " deleted " + curr + " " + currElement.textContent + ".");
+        deleteElement(type, Number(currElement.id), function() {
+            showSidebar(type);
+        });
     });
 }
 
 function readContent(type) {
-    let currElement = document.getElementsByClassName("sidebarElement-active")[0];
-    getElement(type, Number(currElement.id), function (element) {
-        if (!(localStorage[type + element["id"]]) || localStorage[type + element["id"]] == 0) {
-            localStorage[type + element["id"]] = 1;
-            currElement.classList.add("done-element");
-        }
-        else {
-            localStorage[type + element["id"]] = 0;
-            currElement.classList.remove("done-element");
-        }
+    getUser(function(user) {
+        let currElement = document.getElementsByClassName("sidebarElement-active")[0];
+        if (user == "") return;
+        getElement(type, Number(currElement.id), function (element) {
+            if (!(user[type + element["id"]]) || user[type + element["id"]] == 0) {
+                user[type + element["id"]] = 1;
+                updateUser(user);
+                currElement.classList.add("done-element");
+            }
+            else {
+                user[type + element["id"]] = 0;
+                updateUser(user);
+                currElement.classList.remove("done-element");
+            }
+        });
     });
 }

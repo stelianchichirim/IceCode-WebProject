@@ -27,14 +27,32 @@ body {
     display: block;
 }
 
+a:hover {
+    opacity: 0.5;
+}
+
 /* Header and Menu style */
 
 .header {
-    margin: 0px;
+    margin: -15px;
     font-family: 'Righteous', cursive;
     font-size: 32px;
     font-weight: 700;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.title {
+    position: relative;
+}
+
+.loginInfo {
+    font-size: 20px;
+    right: 0px;
+    cursor: pointer;
+    position: absolute;
 }
 
 .subheader {
@@ -94,6 +112,97 @@ body {
     text-align: center;
     padding: 200px 20px 20px 40px;
     line-height: 1.6;
+}
+
+.homeLogin {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 30px;
+    font-weight: 700;
+    width: 100%;
+    padding: 100px 20px 20px 40px;
+}
+
+.loginButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+}
+
+.loginInput {
+    border: none;
+    border-radius: 4px;
+    margin: 5px 0;
+    opacity: 0.85;
+    font-size: 30px;
+    line-height: 20px;
+}
+
+.homeActions {
+    font-size: 18pt;
+    padding: 10px 20px 10px 30px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.loginButton {
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 20px;
+    padding: 10px 20px 10px 20px;
+    font-weight: bold;
+    font-size: 20px;
+    outline: none;
+    vertical-align: bottom;
+    background-color: rgba(0, 255, 0, 0.6);
+    border-color: rgba(0, 255, 0, 0.6);
+    color: #007acc;
+}
+
+.button-findUser {
+    display: inline-block;
+    padding: 7px 10px 7px 10px;
+    font-weight: bold;
+    font-size: 15px;
+    outline: none;
+    background-color: rgba(255, 174, 0, 0.6);
+    border-color: rgba(255, 174, 0, 0.6);
+    color: #007acc;
+}
+
+.homeLoggButton {
+    font-size: 18pt;
+    padding: 10px 20px 10px 30px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.loggButton {
+    display: inline-block;
+    width: 300px;
+    margin-top: 20px;
+    padding: 10px 10px 10px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Lato';
+    font-size: 25px;
+    vertical-align: bottom;
+    background-color: rgba(15, 153, 233, 0.288);
+}
+
+.logStyle {
+    font-size: 18pt;
+    padding: 10px 20px 10px 30px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+    color: black;
 }
 
 /* PROBLEMS AND BLOGS MENU STYLE */
@@ -171,8 +280,8 @@ body {
 
 .container {
     height: auto;
-    bottom: 40px;
-    top: 250px;
+    bottom: -15px;
+    top: 300px;
     z-index: 1;
     display: flex;
     flex-direction: row;
@@ -384,11 +493,70 @@ body {
     font-weight: bold;
     border-radius: 10px;
 }
+
+/* PROFILE STYLE */
+
+.card {
+    background-color: rgba(255, 255, 255, 0.144);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+}
+
+.profileContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.profileActions {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.profileElement {
+    display: inline-block;
+    width: 300px;
+    padding: 20px 20px 20px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Lato';
+    font-size: 25px;
+    vertical-align: bottom;
+    background-color: rgba(255, 255, 255, 0.144);
+    border: ridge;
+    border-color: rgba(0, 0, 0, 0.219);
+}
+
+.profileImg {
+    max-width: 290px;
+    max-height: 300px;
+}
+
+.button-hideText {
+    display: inline-block;
+    padding: 10px 10px 10px 10px;
+    font-weight: bold;
+    font-size: 30px;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    border-color: transparent;
+    color: #005c99;
+}
+
+.profileInput {
+    width: 25%;
+}
+
 /* FOOTER STYLE */
 
 .footer {
     position: absolute;
-    bottom: -70px;
+    bottom: -100px;
     padding-bottom: 20px;;
     width: 100%;
     background-color: transparent;
@@ -445,7 +613,7 @@ body {
     }
 
     .container {
-        top: 300px;
+        top: 340px;
     }
 
     /* STATS STYLE */
@@ -456,6 +624,10 @@ body {
 
     .categoryStat {
         width: calc((100% - 120px)/2);
+    }
+
+    .profileInput {
+        width: 40%;
     }
 }
 
@@ -469,6 +641,10 @@ body {
     .menu-item {
         width: calc((100%-50px)/3);
         font-size: 20px;
+    }
+
+    .loginInfo {
+        font-size: 10px;
     }
 
     /* HOME STYLE */
@@ -515,7 +691,7 @@ body {
     }
 
     .container {
-        top: 300px;
+        top: 340px;
     }
 
     /* STATS STYLE */
@@ -525,4 +701,9 @@ body {
     .categoryStat {
         width: calc(100% - 60px);
     }
+
+    .profileInput {
+        width: 50%;
+    }
+    
 }
